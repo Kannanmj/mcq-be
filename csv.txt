@@ -1,0 +1,25 @@
+const express = require("express");
+const axios = require("axios");
+const XLSX = require("xlsx");
+const Papa = require("papaparse"); // Better CSV parsing
+
+const app = express();
+const PORT = 3000;
+const csvUrl = "https://docs.google.com/spreadsheets/d/1c0j0r-EpG25ijKcTIYIcQ7J77X7L4N5M03Bdtgy5iBA/gviz/tq?tqx=out:csv";
+
+app.get("/", async (req, res) => {
+    try {
+        const response = await axios.get(csvUrl);
+        const csvData = response.data;
+
+        // Use PapaParse for better CSV parsing
+        const { data } = Papa.parse(csvData, { header: true });
+
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching Google Sheets data:", error);
+        res.status(500).json({ error: "Failed to fetch or process data" });
+    }
+});
+
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
