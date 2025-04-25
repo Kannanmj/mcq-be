@@ -1,0 +1,4 @@
+PORT=4000
+DATABASE_CONNECTION=mongodb+srv://ADMIN:digitaly%401234@cluster0.hbkojit.mongodb.net/MCQ?retryWrites=true&w=majority&appName=Cluster0
+NODE_ENV=production
+EMAIL_PASS=Lup8QYwJiD8M
